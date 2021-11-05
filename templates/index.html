@@ -5,31 +5,33 @@
 	<title>Bulk Mail</title>
 </head>
 <body>
-	<form action="/" method="post">
+	<form action="/sender-email" method="post">
 
 		<label>SENDERS EMAIL</label>
-		<input type="text" name="sender-email">
+		<input type="text" name="sender-email" placeholder={{sendermail}}>
 
 		<label>SENDERS PASSWORD</label>
-		<input type="text" name="sender-password">
-		<input type = "submit" value="Upload">
+		<input type="text" name="sender-password" placeholder={{sendermailpassword}}>
+		<input type = "submit" value="SAVE">
 	</form >
 
 
 
 
-	<form action="/" method="POST">
+	<form action="/mails" method="post" enctype="multipart/form-data">
 		<label>Add email file</label>
 		<input type="file" name="emails">
 		<input type = "submit" value="Upload">
 	</form>
 
 
-	<form action="/" method="POST">
+	<form action="/htmlContent" method="post" enctype="multipart/form-data">
 		<label>html files</label>
 		<input type="file" name="html-text">
 		<input type = "submit" value="Upload">
 	</form>
+
+	
 
 </body>
 </html>

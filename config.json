@@ -1,0 +1,10 @@
+{
+	"params":
+	{
+		"senderEmail" : "@gmail.com",
+		"senderPassword" : "asdfgh@123",
+		"reciversEmail" : "",
+		"mailContect" : "ThIs mail was send by a user from the Sendmail.co.in"
+	}
+
+}

@@ -1,10 +1,10 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
+from email.mime.application import MIMEApplicationm
   
 # list of email_id to send the mail
-to = ["rajnishsingh04012001@gmail.com"] # the list of the recivers
+to = ["rajnishsingh04012001@gmail.com","govinddeshmukh2001@gmail.com"] # the list of the recivers
 senderEmail="rajnishsingh1080@gmail.com" #email of the senders
 senderPassword="Rajnish@123" #email password od the sender
 
