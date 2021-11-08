@@ -3,8 +3,11 @@
 	{
 		"senderEmail" : "@gmail.com",
 		"senderPassword" : "asdfgh@123",
+		"senderServer" : "smtp.gmail.com",
 		"reciversEmail" : "",
+		"subject" : "",
 		"mailContect" : "ThIs mail was send by a user from the Sendmail.co.in"
+		
 	}
 
 }

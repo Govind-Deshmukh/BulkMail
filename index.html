@@ -5,30 +5,42 @@
 	<title>Bulk Mail</title>
 </head>
 <body>
-	<form action="/" method="post">
+	<form action="/sender" method="post">
+
+		<label>SERVER</label>
+		<input type="text" name="sender-server">
 
 		<label>SENDERS EMAIL</label>
 		<input type="text" name="sender-email">
 
 		<label>SENDERS PASSWORD</label>
 		<input type="text" name="sender-password">
+
 		<input type = "submit" value="Upload">
 	</form >
 
 
 
 
-	<form action="/" method="POST">
+	<form action="/mails" method="POST">
 		<label>Add email file</label>
 		<input type="file" name="emails">
 		<input type = "submit" value="Upload">
 	</form>
 
 
-	<form action="/" method="POST">
+	<form action="/htmlContent" method="POST">
+
+		<label>Mail Subject</label>
+		<input type="text" name="subject">
+
 		<label>html files</label>
 		<input type="file" name="html-text">
 		<input type = "submit" value="Upload">
+	</form>
+
+	<form>
+		<input type = "submit" value="Send Email">
 	</form>
 
 </body>

@@ -2,12 +2,12 @@ import smtplib
 import os
 from email.message import EmailMessage
 import pathlib
-
+'''
 senderEmail=""     # email of the sender
 senderPassword=""  # password of the email by which wanted to send mail		#creation of smpt_ssl server to send email
-reciverEmials=""  #string of recivers emails
+ #string of recivers emails
 message=None   #email message veriable created
-
+'''
 
 # this function set the value of the sender email and password
 # login into the email by which you wanted to send mail
@@ -44,10 +44,10 @@ def addContent(string, main_type, sub_type):
 			if(sub_type == "html"):
 				message.set_content("")
 				message.add_alternative(string,subtype='html')
-	except e :
-		return e
+	except:
+		return "error"
 	else:
-		return "CONTENT ADDED NO ERROR"
+		return message
 
 def addAttachment(path):
 	with open(path,"rb") as file:
@@ -58,7 +58,7 @@ def addAttachment(path):
 	return "FILE ATTCHED NO ERROR"
 
 
-def sendEmail(senderemail,senderpassword, subject):
+def sendEmail(senderemail,senderpassword, subject, reciverEmials):
 	message["Subject"]=subject
 	message["From"]=senderemail
 	message["To"]=reciverEmials
@@ -70,5 +70,35 @@ def sendEmail(senderemail,senderpassword, subject):
 		print("error occurred")
 	else:
 		return "MESSAGE SEND"
+
+def mail_send_by_flask(senderemail,senderpassword,reciverEmials,subject,server,string):
+	try:
+		message=EmailMessage()
+		message.set_content("no content")
+		message.add_alternative(string,subtype='html')
+
+		message["Subject"]=subject
+		message["From"]=senderemail
+		message["To"]=reciverEmials
+	except Exception as e:
+		 print("error1",e)
+		 return "error1"
+
+	try:
+		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
+			smtp.login(senderemail,senderpassword)
+			smtp.send_message(message)
+	except Exception as e:
+		 print("error2",e)
+		 return "error2"
+	else:
+		return "MESSAGE SEND"
+
+def good_content(string):
+	bad_words=["\n","\t","\r","\a"]
+	for i in bad_words :
+		string = string.replace(i, "")
+	print(string)
+	return string
 
 
