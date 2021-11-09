@@ -4,10 +4,17 @@
 		"senderEmail" : "@gmail.com",
 		"senderPassword" : "asdfgh@123",
 		"senderServer" : "smtp.gmail.com",
+		"username": "randomUser108",
 		"reciversEmail" : "",
 		"subject" : "",
 		"mailContect" : "ThIs mail was send by a user from the Sendmail.co.in"
-		
+	},
+	"errors":
+	{
+		"saveError" : "",
+		"emailError": "",
+		"messageError" :  "",
+		"sendError" : ""
 	}
 
 }

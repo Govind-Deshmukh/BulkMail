@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')  
 def upload():  
-    return render_template("index.html",params=params) 
+    return render_template("index2.html",params=params) 
 
 
 @app.route('/sender', methods= ['GET','POST']) 
@@ -26,7 +26,7 @@ def senderemail():
         if params["senderServer"] == "":
             params["senderServer"]="smtp.gmail.com"
         print(params["senderEmail"],params["senderPassword"],params["senderServer"])
-    return render_template("index.html",params= params)  
+    return render_template("index2.html",params= params)  
 
 
 @app.route('/mails', methods = ['GET','POST'])

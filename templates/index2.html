@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bulk Mail</title>
+</head>
+<body>
+	<form action="/sender" method="post">
+
+		<label>SENDERS SERVER</label>
+		<input type="text" name="sender-server" placeholder={{params["senderServer"]}}>
+		<br>
+
+		<label>SENDERS EMAIL</label>
+		<input type="text" name="sender-email" placeholder={{params["senderEmail"]}}>
+		<br>
+		<label>SENDERS PASSWORD</label>
+		<input type="text" name="sender-password" placeholder={{params["senderPassword"]}}>
+		<br>
+		<input type = "submit" value="SAVE">
+	</form >
+	<br>
+
+
+
+
+	<form action="/mails" method="post" enctype="multipart/form-data">
+		<label>Add email file</label>
+		<input type="file" name="emails">
+		<br>
+		<input type = "submit" value="Upload">
+	</form>
+<br>
+
+	<form action="/htmlContent" method="post" enctype="multipart/form-data">
+		<label>SUBJECT</label>
+		<input type="text" name="subject" placeholder="enter the subject of mail">
+		<br>
+		<label>html files</label>
+		<input type="file" name="html-text">
+		<br>
+		<input type = "submit" value="Upload">
+	</form>
+<br>
+<br>
+	<form action="/sendmail">
+		<input type="submit" value="SEND EMAIL">
+	</form>
+	
+
+</body>
+</html>

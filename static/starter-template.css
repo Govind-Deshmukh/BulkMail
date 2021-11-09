@@ -1,0 +1,25 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.pricing{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.pricingTable{
+  width: 350px;
+  margin: 80px;
+}
+
+@media only screen and (max-width: 600px) {
+  .pricingTable{
+    width: 250px;
+    margin: 10px;
+  }
+}

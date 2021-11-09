@@ -1,0 +1,149 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<style>
+  table{
+    margin-left: auto;
+  margin-right: auto;
+  }
+  table, th,td{
+    border: 1px solid black;
+    padding: 15px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="font-size: 25px; font-weight: bold;">Send Mail</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}" style="font-size: 20px; font-weight: bold; color: white;">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <div class="col-sm-3 col-md-2 sidebar">
+
+          <label for="">Please enter details of your email id through which mails are going to be sent.</label>
+          <br><br>
+          <ul class="nav nav-sidebar" style="text-align: center;">
+
+            <form action="/dashboard/sender" method="post">
+              <label for="">Enter your server</label> <br>
+              <input type="text" name="sender-server" required placeholder={{params["senderServer"]}}>
+
+              <br><br>
+
+              <label for="">Enter your email id</label><br>
+              <input type="email" name="sender-email" required placeholder={{params["senderEmail"]}}>
+
+              <br><br>
+
+              <label for="">Enter your password</label><br>
+              <input type="password" name="sender-password" placeholder={{params["senderPassword"]}} required>
+              <!--if wanted not to show the data then can use remove place holder  -->
+              <br><br>
+
+              <button type="submit">Save</button>
+            </form>
+          </ul>
+        </div>
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome, {{ params["username"] }}</h1>
+
+          <div class="row placeholders">
+            <div class="container-fluid" style="text-align: center;">
+             <h3>Please arrange email id of all receivers in following format inside a excel sheet</h3>
+             <table class="table-responsive" style="align-items: center;">
+               <tr>
+                 <th>Sr No</th>
+                 <th>Name</th>
+                 <th>Email</th>
+               </tr>
+               <tr>
+                 <td>1</td>
+                 <td>.</td>
+                 <td>.</td>
+               </tr>
+               <tr>
+                <td>2</td>
+                <td>.</td>
+                <td>.</td>
+              </tr>
+             </table>
+            </div>
+
+          </div>
+
+          <div>
+            <form action="/dashboard/mails" method="post" enctype="multipart/form-data">
+              <h3>Please select excel file</h3>
+              <input type="file" name="emails">
+              <br>
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+          </div>
+
+          <div >
+            <form action="/dashboard/htmlContent" method="post" enctype="multipart/form-data">
+    
+              <h3>Please enter subject for mail</h3>
+              <div><input type="text" name="subject" placeholder="enter the subject of mail" style="width: 100%;"></div>
+    
+              <h3 class="sub-header">Please enter your message for mail</h3>
+              <div id="editor"></div>
+
+              <br>
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+
+          </div>
+          <br>
+          <br>
+          <div style="text-align:center;">
+          <form action="/dashboard/sendmail">
+              <button type="submit" class="btn btn-primary" style="width: 100px;">send</button>
+          </form>
+          </div> 
+
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#editor' ) )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
+
+{% endblock scripts %}
