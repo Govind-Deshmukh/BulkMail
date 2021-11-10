@@ -119,6 +119,29 @@ def emailer():
         print(params["reciversEmail"])
     return redirect(request.referrer)
 
+@app.route('/dashboard/htmlContent', methods = ['GET','POST'])
+def mailer():
+    if request.method == "POST":
+        params["subject"]=request.form.get("subject")
+        print(params["subject"])
+        f=request.files['html-text']
+        dff = f.read()
+        dff=dff.decode("utf-8")
+
+        params["mailContent"]=dff
+    return redirect(request.referrer)
+
+@app.route('/dashboard/sendmail')
+def mailsend():
+    reciverEmails = str(params["reciversEmail"])
+    senderEmail=str(params["senderEmail"])
+    senderPassword=str(params["senderPassword"])
+    subject=str(params["subject"])
+    server = str(params["senderServer"])
+    string=str(params["mailContent"])
+    mess = mail_send_by_flask(senderEmail,senderPassword,reciverEmails,subject,server,string)
+    return mess 
+
 @app.route('/logout')
 @login_required
 def logout():
