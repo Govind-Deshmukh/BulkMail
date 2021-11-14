@@ -37,7 +37,11 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
+<<<<<<< HEAD
 VIRTUAL_ENV="C:\Users\hp\Desktop\bulkmail"
+=======
+VIRTUAL_ENV="C:\Users\hp\Desktop\bulkmail2"
+>>>>>>> 2792b0b6e0808db212ec8cc26edb552ca6bea186
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -54,7 +58,7 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1="(bulkmail) ${PS1:-}"
+    PS1="(bulkmail2) ${PS1:-}"
     export PS1
 fi
 
