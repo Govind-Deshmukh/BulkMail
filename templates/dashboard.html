@@ -67,6 +67,11 @@ Dashboard
 
               <button type="submit">Save</button>
             </form>
+            <br>
+            <br>
+            <div style="color: red;">
+              {{error["saveError"]|safe}}
+            </div>
           </ul>
         </div>
 
@@ -105,6 +110,12 @@ Dashboard
               <br>
               <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+            <div style="color: red;">
+              {{error["emailError"]|safe}}
+            </div>
+            <div style="color: green;">
+              {{params["emaildata"]|safe}}
+            </div>
           </div>
 
           <div >
@@ -130,6 +141,9 @@ Dashboard
           <form action="/dashboard/sendmail">
               <button type="submit" class="btn btn-primary" style="width: 100px;">send</button>
           </form>
+          <div style="color: red;">
+              {{error["sendError"]|safe}}
+            </div>
           </div> 
 
 

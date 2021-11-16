@@ -80,17 +80,17 @@ def mail_send_by_flask(senderemail,senderpassword,reciverEmials,subject,server,s
 		message["Subject"]=subject
 		message["From"]=senderemail
 		message["To"]=reciverEmials
-	except Exception as e:
-		 print("error1",e)
-		 return "error1"
+	except Exception as e2:
+		 
+		 return str(e2)
 
 	try:
 		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
 			smtp.login(senderemail,senderpassword)
 			smtp.send_message(message)
 	except Exception as e:
-		 print("error2",e)
-		 return "error2"
+		 
+		 return str(e1)
 	else:
 		return "MESSAGE SEND"
 

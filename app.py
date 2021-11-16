@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, BooleanField
@@ -12,12 +12,13 @@ import pandas as pd
 import os
 from sendEmail.SENDEmail import addEmails, addContent, mail_send_by_flask, good_content
 import requests
+from sendEmail.exception_handle import *
 
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/hp/Desktop/bulkmail/database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/hp/Desktop/mailbulk/database.db'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -94,7 +95,7 @@ def signup():
 @login_required
 def dashboard():
     params["username"]=current_user.username
-    return render_template('dashboard.html',params=params)
+    return render_template('dashboard.html',params=params,error=errors)
 
 @app.route('/dashboard/sender', methods= ['GET','POST']) 
 def senderemail():
@@ -105,19 +106,38 @@ def senderemail():
         if params["senderServer"] == "":
             params["senderServer"]="smtp.gmail.com"
         print(params["senderEmail"],params["senderPassword"],params["senderServer"])
-    return render_template('dashboard.html',params=params)
+        errors["saveError"]="<h4>"+sender_detail_exception(params["senderEmail"],params["senderPassword"],params["senderServer"])+ "</h4>"
+    return render_template('dashboard.html',params=params, error=errors)
 
 @app.route('/dashboard/mails', methods = ['GET','POST'])
 def emailer():
     if request.method =="POST":
+        print("came in out1")
         f=request.files['emails']
+        if f.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        print("came in out2")
+        if f.filename.split('.')[1] != "xlsx":
+            print("came in out3")
+            print(f.filename.split('.')[1])
+            errors["emailError"]="<h4>The input file is not .xlsx</h4>"
+            return render_template('dashboard.html',params=params, error=errors)  
+        params["emaildata"]=f.filename
         df=pd.read_excel(f)
+
+        if "email" not in df.columns:
+            print("came in out4")
+            errors["emailError"]="<h4>File not have column name 'email' </h4>"
+            return render_template('dashboard.html',params=params, error=errors)
         list=[]
         for x in df['email']:
             list.append(x)
         params["reciversEmail"]=addEmails(list)
         print(params["reciversEmail"])
-    return redirect(request.referrer)
+    #return redirect(request.referrer)
+    errors["emailError"]=""
+    return render_template('dashboard.html',params=params, error=errors)
 
 @app.route('/dashboard/htmlContent', methods = ['GET','POST'])
 def mailer():
@@ -129,7 +149,8 @@ def mailer():
         dff=dff.decode("utf-8")
 
         params["mailContent"]=dff
-    return redirect(request.referrer)
+    #return redirect(request.referrer)
+    return render_template('dashboard.html',params=params, error=errors)
 
 @app.route('/dashboard/sendmail')
 def mailsend():
@@ -139,8 +160,8 @@ def mailsend():
     subject=str(params["subject"])
     server = str(params["senderServer"])
     string=str(params["mailContent"])
-    mess = mail_send_by_flask(senderEmail,senderPassword,reciverEmails,subject,server,string)
-    return mess 
+    errors["sendError"] = mail_send_by_flask(senderEmail,senderPassword,reciverEmails,subject,server,string)
+    return render_template('dashboard.html',params=params, error=errors) 
 
 @app.route('/logout')
 @login_required
