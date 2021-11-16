@@ -7,6 +7,7 @@ Dashboard
 {% block styles %}
 {{super()}}
 <link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="./ckeditor/contents.css">
 <style>
   table{
     margin-left: auto;
@@ -125,7 +126,7 @@ Dashboard
               <div><input type="text" name="subject" placeholder="enter the subject of mail" style="width: 100%;"></div>
     
               <h3 class="sub-header">Please enter your message for mail</h3>
-              <div id="editor"></div>
+              <textarea id="editor" name="editor"></textarea>
 
               <br>
               <h3>Or Select the file with message(.txt/.html)</h3>
@@ -154,6 +155,9 @@ Dashboard
 
 {% block scripts %}
 <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+<script src="./ckeditor/ckeditor.js"></script>
+<script src="./ckeditor/styles.js"></script>
 
 <script>
   ClassicEditor

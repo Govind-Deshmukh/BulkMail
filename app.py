@@ -143,7 +143,9 @@ def emailer():
 def mailer():
     if request.method == "POST":
         params["subject"]=request.form.get("subject")
+        params["editor"]=request.form.get("editor")
         print(params["subject"])
+        print(params["editor"])
         f=request.files['html-text']
         dff = f.read()
         dff=dff.decode("utf-8")
