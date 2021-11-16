@@ -18,7 +18,7 @@ from sendEmail.exception_handle import *
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/hp/Desktop/mailbulk/database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -86,7 +86,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
 
-        return '<h1>New user has been created!</h1>'
+        return redirect(url_for('login'))
         #return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
     return render_template('signup.html', form=form)
@@ -143,14 +143,34 @@ def emailer():
 def mailer():
     if request.method == "POST":
         params["subject"]=request.form.get("subject")
+
         params["editor"]=request.form.get("editor")
+        if params["subject"]=="":
+            errors["messageError"]="<h4>Plaeas add an subject to to send mail</h4>"
+            return render_template('dashboard.html',params=params, error=errors)
         print(params["subject"])
         print(params["editor"])
         f=request.files['html-text']
-        dff = f.read()
-        dff=dff.decode("utf-8")
+        if f.filename == '' and params["editor"]=="":
+            flash('No selected file')
+            return redirect(request.url)
+        if f.filename == '' and params["editor"]!="":
+            params["mailContent"]=params["editor"]
+            errors["messageError"]="<h4>message added</h4>"
+            
+        if f.filename != '' and params["editor"]=="":
+            dff = f.read()
+            dff=dff.decode("utf-8")
+            params["mailContent"]=dff
+            errors["messageError"]="<h4>message added</h4>"
+            
+        if f.filename != '' and params["editor"]!="":
+            dff = f.read()
+            dff=dff.decode("utf-8")
+            params["mailContent"]=dff
+            errors["messageError"]="<h4>message added</h4>"
+            
 
-        params["mailContent"]=dff
     #return redirect(request.referrer)
     return render_template('dashboard.html',params=params, error=errors)
 

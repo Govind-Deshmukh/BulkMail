@@ -134,6 +134,9 @@ Dashboard
               <br>
               <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+             <div style="color: red;">
+              {{error["messageError"]|safe}}
+            </div>
 
           </div>
           <br>
@@ -168,3 +171,5 @@ Dashboard
 </script>
 
 {% endblock scripts %}
+
+
