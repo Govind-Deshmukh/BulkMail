@@ -1,0 +1,43 @@
+.navbar-brand{
+    font-size: 30px;
+    font-weight: bold;
+    padding:8px;
+}
+
+.logout{
+    padding: 8px;
+    margin-right: 8px;
+}
+
+.box1{
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.card{
+    min-height: 450px;
+    background-color: #ececec;
+    border: 1px solid black;
+}
+
+.card-header{
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.box2{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+    .Step2{
+        margin-top: 15px;
+    }
+  }
