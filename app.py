@@ -10,7 +10,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 import json
 import pandas as pd
 import os
-from sendEmail.SENDEmail import addEmails, addContent, mail_send_by_flask, good_content
+from sendEmail.SENDEmail import addEmails, addContent, mail_send_by_flask, good_content,solveit
 import requests
 from sendEmail.exception_handle import *
 
@@ -184,6 +184,18 @@ def mailsend():
     string=str(params["mailContent"])
     errors["sendError"] = mail_send_by_flask(senderEmail,senderPassword,reciverEmails,subject,server,string)
     return render_template('dashboard.html',params=params, error=errors) 
+
+@app.route('/dashboard/sendmailcc')
+def mailsendupto():
+    reciverEmails = str(params["reciversEmail"])
+    senderEmail=str(params["senderEmail"])
+    senderPassword=str(params["senderPassword"])
+    subject=str(params["subject"])
+    server = str(params["senderServer"])
+    string=str(params["mailContent"])
+    errors["sendError"] = solveit(senderEmail,senderPassword,reciverEmails,subject,server,string)
+    return render_template('dashboard.html',params=params, error=errors) 
+    
 
 @app.route('/logout')
 @login_required

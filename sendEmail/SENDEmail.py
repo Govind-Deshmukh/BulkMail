@@ -88,7 +88,7 @@ def mail_send_by_flask(senderemail,senderpassword,reciverEmials,subject,server,s
 		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
 			smtp.login(senderemail,senderpassword)
 			smtp.send_message(message)
-	except Exception as e:
+	except Exception as e1:
 		 
 		 return str(e1)
 	else:
@@ -101,4 +101,33 @@ def good_content(string):
 	print(string)
 	return string
 
+def solveit(senderemail,senderpassword,reciverEmials,subject,server,string):
+	reciverlist=reciverEmials.split(", ")
+	print(reciverEmials)
+	for x in reciverlist:
+		print(x)
+	try:
+		message=EmailMessage()
+		message.set_content("no content")
+		message.add_alternative(string,subtype='html')
 
+		message["Subject"]=subject
+		message["From"]=senderemail
+		#message["To"]=reciverEmials
+	except Exception as e2:
+		 
+		 return str(e2) + "Error e2"
+
+	try:
+	
+		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
+			smtp.login(senderemail,senderpassword)
+			for x in reciverlist:
+				message["To"]=x
+				smtp.send_message(message)
+				del message["To"]
+	except Exception as e1:
+		 
+		 return str(e1) +"Error e1"
+	else:
+		return "MESSAGE SEND"
