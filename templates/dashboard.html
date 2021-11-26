@@ -21,7 +21,7 @@
           </ul>
           <div class="d-flex logout">
             <span>
-              <h3 style="color: white; margin-right: 10px;">Welcome, {{ params["username"] }}</h3>
+              <h3 style="color: white; margin-right: 10px;">Welcome, {{session["username"]}} </h3>
             </span>
             <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
           </div>

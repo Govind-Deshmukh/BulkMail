@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, BooleanField
@@ -17,6 +17,7 @@ from sendEmail.exception_handle import *
 
 
 app = Flask(__name__)
+app.secret_key="MagamInfoTech"
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 bootstrap = Bootstrap(app)
@@ -94,7 +95,7 @@ def signup():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    params["username"]=current_user.username
+    session["username"]=current_user.username
     return render_template('dashboard.html',params=params,error=errors)
 
 @app.route('/dashboard/sender', methods= ['GET','POST']) 
@@ -204,4 +205,4 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
