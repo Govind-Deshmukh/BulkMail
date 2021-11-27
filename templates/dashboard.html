@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}"> {% block title %} <title>Dashboard</title>
     <link rel="icon" type="image/x-icon" href="https://magmainfotech.com/assets/img/logo.png"> {% endblock %}
   </head> {% block content %} <body>
+
+
+
+
+
+
+    <!-- here we can send the data to the session storage file -->
+    <script type="text/javascript">
+      function myFunc(vars) {
+        return vars;
+      }
+      function initiate(){
+          // I wanted to pass the vslues a sting object and wanted to read them and store the in local/ session storage.
+          para = myFunc({{p | tojson}})
+          for(let x in para){
+            sessionStorage.setItem(x, para[x]);
+          }
+          
+      }
+      initiate();
+      
+    </script>
+
+
+
+
+
+
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">SendMail</a>
@@ -21,9 +50,13 @@
           </ul>
           <div class="d-flex logout">
             <span>
-              <h3 style="color: white; margin-right: 10px;">Welcome, {{session["username"]}} </h3>
+              <h3 style="color: white; margin-right: 10px;" id="userNameRaj"></h3>
             </span>
-            <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+            <form action="/logout" method ="post">
+              <input type="hidden" name="logout" value="" id="logoutvalue">
+              <button class="btn btn-primary" >Logout</button>
+            </form>
+            
           </div>
         </div>
       </div>
@@ -37,21 +70,21 @@
             <form action="/dashboard/sender" method="post">
               <div class="form-group">
                 <label>Enter Server</label>
-                <input type="text" class="form-control" name="sender-server" placeholder={{params["senderServer"]}} required>
+                <input type="text" class="form-control" name="sender-server" placeholder="" id="senderserver"  required>
               </div>
               <div class="form-group">
                 <label>Enter mail id</label>
-                <input type="text" class="form-control" name="sender-email" placeholder={{params["senderEmail"]}} required>
+                <input type="text" class="form-control" name="sender-email" placeholder="" id="senderemail"} required>
               </div>
               <div class="form-group">
                 <label>Enter password</label>
-                <input type="text" class="form-control" name="sender-password" placeholder={{params["senderPassword"]}} required>
+                <input type="text" class="form-control" name="sender-password" placeholder="" id="senderpassword" required>
               </div>
               <button type="submit" class="btn btn-primary">Save</button>
           </div>
           </form>
-          <div style="color: red;">
-            {{error["saveError"]|safe}}
+          <div style="color: red;" id="saveerror">
+            
           </div>
         </div>
       </div>
@@ -85,11 +118,11 @@
               <button type="submit" class="btn btn-primary">Upload</button>
             </div>
           </form>
-          <div style="color: red;">
-            {{error["emailError"]|safe}}
+          <div style="color: red;" id="emailerror">
+            
           </div>
-          <div style="color: green;">
-            {{params["emaildata"]|safe}}
+          <div style="color: green;" id="emaildata">
+           
           </div>
         </div>
       </div>
@@ -114,8 +147,8 @@
                 <button type="submit" class="btn btn-primary">Save</button>
               </div>
             <br>
-              <div style="color: green;">
-                {{error["messageError"]|safe}}
+              <div style="color: green;" id="messageerror">
+                >
               </div>
             </form>
           </div>
@@ -123,19 +156,110 @@
       </div>
     </div>
     <div style="text-align:center;">
-      <form action="/dashboard/sendmail">
+      <form action="/dashboard/sendmail" method="post">
+
+        <input type="hidden" name="sendserverqwer"  value="" id ="sendserver2">
+        <input type="hidden" name="sendemailqwer"  value="" id ="sendemail2">
+        <input type="hidden" name="sendpasswordqwer"  value="" id ="sendpassword2">
+        <input type="hidden" name="sendreciveremailqwer" value="" id ="sendreciversermail2">
+        <input type="hidden" name="sendsubjectqwer"  value="" id ="sendsubject2">
+        <input type="hidden" name="sendmessageqwer" value="" id ="sendmessage2">
         <button type="submit" class="btn btn-primary" style="width: 200px;">Send as CC</button>
       </form>
       <br><br>
-      <form action="/dashboard/sendmailcc">
+      <form action="/dashboard/sendmailcc" method="post">
+
+        <input type="hidden" name="sendserverqwer2"  value="" id ="sendserver3">
+        <input type="hidden" name="sendemailqwer2"  value="" id ="sendemail3">
+        <input type="hidden" name="sendpasswordqwer2"  value="" id ="sendpassword3">
+        <input type="hidden" name="sendreciveremailqwer2" value="" id ="sendreciversermail3">
+        <input type="hidden" name="sendsubjectqwer2"  value="" id ="sendsubject3">
+        <input type="hidden" name="sendmessageqwer2" value="" id ="sendmessage3">
+
         <button type="submit" class="btn btn-primary" style="width: 200px;">Send Individually</button>
       </form>
       <br>
       <br>
-      <div style="color: red;">
-        {{error["sendError"]|safe}}
+      <div style="color: red;" id="senderror">
+        
       </div>
-    </div> {% block scripts %}
+    </div> 
+
+
+
+
+
+    <script type="text/javascript">
+      function putvalue2(){
+        // is how we can send data to a server.
+        var v1=document.getElementById("logoutvalue");
+        v1.value=sessionStorage.getItem("userName");
+
+        var v2=document.getElementById("sendserver2");
+        v2.value=sessionStorage.getItem("senderServer");
+
+        var v3=document.getElementById("sendemail2");
+        v3.value=sessionStorage.getItem("senderEmail");
+
+        var v4=document.getElementById("sendpassword2");
+        v4.value=sessionStorage.getItem("senderPassword");
+
+        var v5=document.getElementById("sendsubject2");
+        v5.value=sessionStorage.getItem("subject");
+
+        var v6=document.getElementById("sendreciversermail2");
+        v6.value=sessionStorage.getItem("reciversEmail");
+
+        var v7=document.getElementById("sendmessage2");
+        v7.value=sessionStorage.getItem("mailContent");
+      }
+      putvalue2();
+    </script>
+    <script type="text/javascript">
+
+      function putvalue3(){
+        // is how we can send data to a server.
+
+        var v2=document.getElementById("sendserver3");
+        v2.value=sessionStorage.getItem("senderServer");
+
+        var v3=document.getElementById("sendemail3");
+        v3.value=sessionStorage.getItem("senderEmail");
+
+        var v4=document.getElementById("sendpassword3");
+        v4.value=sessionStorage.getItem("senderPassword");
+
+        var v5=document.getElementById("sendsubject3");
+        v5.value=sessionStorage.getItem("subject");
+
+        var v6=document.getElementById("sendreciversermail3");
+        v6.value=sessionStorage.getItem("reciversEmail");
+
+        var v7=document.getElementById("sendmessage3");
+        v7.value=sessionStorage.getItem("mailContent");
+      }
+      putvalue3();
+    </script>
+    <script type="text/javascript">
+      function putvalue(){
+
+        // this is how we can send the data to the to an element; 
+        document.getElementById("userNameRaj").innerHTML = "Welcome, "+  sessionStorage.getItem("userName");
+        document.getElementById("saveerror").innerHTML =sessionStorage.getItem("saveError");
+        document.getElementById("emailerror").innerHTML =sessionStorage.getItem("emailError");
+        document.getElementById("messageerror").innerHTML =sessionStorage.getItem("messageError");
+        document.getElementById("senderror").innerHTML =sessionStorage.getItem("sendError");
+        document.getElementById("emaildata").innerHTML =sessionStorage.getItem("emailData");
+
+
+        document.getElementById("senderserver").placeholder=sessionStorage.getItem("placeholderServer");
+        document.getElementById("senderemail").placeholder=sessionStorage.getItem("placeholderEmail");
+        document.getElementById("senderpassword").placeholder=sessionStorage.getItem("placeholderPassword");
+      }
+
+      putvalue();
+    </script>
+    {% block scripts %}
     <!-- <div class="d-flex justfiy-content-center"><button type="submit" class="btn btn-primary"> Send Messages </button></div> -->
     <!-- ckeditor cdn  -->
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>

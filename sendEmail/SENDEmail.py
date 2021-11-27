@@ -85,7 +85,7 @@ def mail_send_by_flask(senderemail,senderpassword,reciverEmials,subject,server,s
 		 return str(e2)
 
 	try:
-		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
+		with smtplib.SMTP_SSL(server,465) as smtp:
 			smtp.login(senderemail,senderpassword)
 			smtp.send_message(message)
 	except Exception as e1:
@@ -120,7 +120,7 @@ def solveit(senderemail,senderpassword,reciverEmials,subject,server,string):
 
 	try:
 	
-		with smtplib.SMTP_SSL("smtp.gmail.com",465) as smtp:
+		with smtplib.SMTP_SSL(server,465) as smtp:
 			smtp.login(senderemail,senderpassword)
 			for x in reciverlist:
 				message["To"]=x
