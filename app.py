@@ -148,12 +148,12 @@ def emailer():
         p["emailData"]=f.filename
         df=pd.read_excel(f)
 
-        if "email" not in df.columns:
+        if "Email" not in df.columns:
             #print("came in out4")
             p["emailError"]="<h4>File not have column name 'email' </h4>"
             return render_template('dashboard.html',p=p)
         list=[]
-        for x in df['email']:
+        for x in df['Email']:
             list.append(x)
         p["reciversEmail"]=addEmails(list)
         del list
