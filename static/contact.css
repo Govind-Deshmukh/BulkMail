@@ -1,0 +1,49 @@
+.nav-btn .btn{
+    margin: 8px;
+}
+
+.navbar-brand{
+    font-size: 25px;
+    font-weight: bold;
+}
+body {
+    font-family: 'Lato', sans-serif
+}
+
+h1 {
+    margin-bottom: 40px
+}
+
+a{
+    text-decoration: none;
+}
+label {
+    color: #333
+}
+
+.btn-send {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    width: 80%;
+    margin-left: 3px
+}
+
+.help-block.with-errors {
+    color: #ff5050;
+    margin-top: 5px
+}
+
+.card {
+    margin-left: 10px;
+    margin-right: 10px
+}
+
+.row{
+    margin: 8px;
+}
+
+.footer_bottom{
+    margin-top: 20px;
+    padding: 5px;
+}
