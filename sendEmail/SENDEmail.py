@@ -22,7 +22,7 @@ def addEmails(email):
 	global reciverEmials
 	reciverEmials="rajnishsingh04012001@gmial.com"
 	for x in email:
-		reciverEmials=reciverEmials+", "+x
+		reciverEmials=reciverEmials+", "+str(x)
 	return reciverEmials
 
 
